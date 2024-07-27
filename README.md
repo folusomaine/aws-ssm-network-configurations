@@ -26,25 +26,26 @@ module "ssm_session_manager" {
     Project     = "SSM"
   }
 }
+```
 
-### Inputs
+## Inputs
 
-| Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
-| create | Controls whether to create the module's resources | `bool` | `true` | no |
-| create_instance_profile | Controls whether to create an EC2 instance profile for SSM | `bool` | `false` | no |
-| vpc_id | ID of the VPC where resources will be created | `string` | N/A | yes |
-| subnet_ids | List of subnet IDs to associate with the SSM NACL (optional) | `list(string)` | `[]` | no |
-| region | AWS region | `string` | `"eu-west-1"` | no |
-| tags | A map of tags to add to all resources | map(string) | {} | no |
+| Name | Type | Description | Default | Required |
+|------|------|-------------|---------|:--------:|
+| create | `bool` | Controls whether to create the SSM Session Manager resources | `true` | no |
+| create_instance_profile | `bool` | Controls whether to create the EC2 instance profile for SSM | `false` | no |
+| vpc_id | `string` | ID of the VPC where resources will be created | n/a | yes |
+| subnet_ids | `list(string)` | List of subnet IDs to associate with the NACL | `[]` | no |
+| region | `string` | AWS region | `"eu-west-1"` | no |
+| tags | `map(string)` | A map of tags to add to all resources | `{}` | no |
 
-### Outputs
+## Outputs
 
 | Name | Description |
 |------|-------------|
 | security_group_id | ID of the created security group |
 | nacl_id | ID of the created network ACL |
-|instance_profile_name | Name of the created EC2 instance profile (if applicable) |
+| instance_profile_name | Name of the created EC2 instance profile (if applicable) |
 
 ## Notes
 
