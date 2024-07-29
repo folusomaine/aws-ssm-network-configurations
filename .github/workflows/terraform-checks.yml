@@ -30,14 +30,15 @@ jobs:
       run: terraform validate
       if: success() && steps.init.outcome == 'success'
 
-    - name: Setup and Run TFLint
-      if: success() && steps.init.outcome == 'success'
+    - name: TFLint
       uses: terraform-linters/setup-tflint@v2
+      if: success() && steps.init.outcome == 'success'
       with:
         tflint_version: v0.52.0
-      run: |
-        tflint --init
-        tflint --format=compact
+
+    - name: Run TFLint
+      run: tflint --format=compact
+      if: success() && steps.init.outcome == 'success'
 
     - name: Run TFSec
       uses: aquasecurity/tfsec-action@v1.0.0
