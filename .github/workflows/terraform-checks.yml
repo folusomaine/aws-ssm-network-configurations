@@ -45,11 +45,3 @@ jobs:
       with:
         tfsec_args: --exclude aws-vpc-no-public-egress-sgr
 
-    - name: Terraform Docs # TF auto documentation
-      uses: terraform-docs/gh-actions@v0.11.0
-      if: success() && steps.init.outcome == 'success'
-      with:
-        working-dir: .
-        output-file: README-TF.md
-        output-method: inject
-        git-push: "true"
