@@ -45,7 +45,7 @@ jobs:
       if: success() && steps.init.outcome == 'success'
 
     - name: Run TFSec
-      run: tfsec .
+      run: tfsec . --config-file .tfsec.yml
       if: success() && steps.init.outcome == 'success'
 
     - name: Checkov # Runs policy checks for violations policies
