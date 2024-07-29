@@ -96,3 +96,6 @@ resource "aws_iam_role_policy_attachment" "ssm_policy" {
 
 # VPC Endpoint for Session Manager Connection
 # TODO
+# https://github.com/terraform-aws-modules/terraform-aws-vpc/tree/v5.9.0/modules/vpc-endpoints
+# https://github.com/terraform-aws-modules/terraform-aws-ec2-instance/tree/v5.6.1/examples/session-manager
+
