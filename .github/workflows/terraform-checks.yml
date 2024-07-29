@@ -45,7 +45,7 @@ jobs:
       if: success() && steps.init.outcome == 'success'
 
     - name: Run TFSec
-      run: tfsec . --config-file .tfsec.yml
+      run: tfsec . --exclude-rule aws-vpc-no-public-egress-sgr
       if: success() && steps.init.outcome == 'success'
 
     - name: Checkov # Runs policy checks for violations policies
