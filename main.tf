@@ -1,3 +1,5 @@
+# Main configuration for AWS Systems Manager Session Manager module
+
 # Security Group
 resource "aws_security_group" "ssm_sg" {
   count       = var.create ? 1 : 0
@@ -91,3 +93,9 @@ resource "aws_iam_role_policy_attachment" "ssm_policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
   role       = aws_iam_role.ssm_role[0].name
 }
+
+# VPC Endpoint for Session Manager Connection
+# TODO
+# https://github.com/terraform-aws-modules/terraform-aws-vpc/tree/v5.9.0/modules/vpc-endpoints
+# https://github.com/terraform-aws-modules/terraform-aws-ec2-instance/tree/v5.6.1/examples/session-manager
+

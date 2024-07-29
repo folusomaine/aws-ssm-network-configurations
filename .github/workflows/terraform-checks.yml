@@ -1,0 +1,65 @@
+name: Terraform Module Checks
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  terraform-checks:
+    name: Terraform Checks
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v1
+      with:
+        terraform_version: 1.9.3
+
+    - name: Terraform Format Check
+      run: terraform fmt -check -recursive
+
+    - name: Terraform Init
+      run: terraform init
+      id: init
+
+    - name: Terraform Validate
+      run: terraform validate
+      if: success() && steps.init.outcome == 'success'
+
+    - name: TFLint
+      uses: terraform-linters/setup-tflint@v2
+      if: success() && steps.init.outcome == 'success'
+      with:
+        tflint_version: v0.52.0
+
+    - name: Run TFLint
+      run: tflint --format=compact
+      if: success() && steps.init.outcome == 'success'
+
+    - name: Setup TFSec
+      uses: aquasecurity/tfsec-action@v1.0.0
+      if: success() && steps.init.outcome == 'success'
+
+    - name: Run TFSec
+      run: tfsec .
+      if: success() && steps.init.outcome == 'success'
+
+    - name: Checkov # Runs policy checks for violations policies
+      uses: bridgecrewio/checkov-action@master
+      if: success() && steps.init.outcome == 'success'
+      with:
+        directory: .
+        framework: terraform
+
+    - name: Terraform Docs # TF auto documentation
+      uses: terraform-docs/gh-actions@v0.11.0
+      if: success() && steps.init.outcome == 'success'
+      with:
+        working-dir: .
+        output-file: README-TF.md
+        output-method: inject
+        git-push: "true"

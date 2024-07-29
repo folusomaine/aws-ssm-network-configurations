@@ -36,7 +36,7 @@ module "ssm_session_manager" {
 | create_instance_profile | `bool` | Controls whether to create the EC2 instance profile for SSM | `false` | no |
 | vpc_id | `string` | ID of the VPC where resources will be created | n/a | yes |
 | subnet_ids | `list(string)` | List of subnet IDs to associate with the NACL | `[]` | no |
-| region | `string` | AWS region | `"eu-west-1"` | no |
+| region | `string` | AWS region | `eu-west-1` | no |
 | tags | `map(string)` | A map of tags to add to all resources | `{}` | no |
 
 ## Outputs
@@ -51,4 +51,4 @@ module "ssm_session_manager" {
 
 - If create is set to false, no resources will be created.
 - The EC2 instance profile is only created if both create and create_instance_profile are set to true.
-- If no subnet_ids are provided, the NACL will be created but not associated with any subnets.
+- If no `subnet_ids` are provided, the NACL will be created but not associated with any subnets.
