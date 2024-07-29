@@ -36,7 +36,6 @@ module "ssm_session_manager" {
 | create_instance_profile | `bool` | Controls whether to create the EC2 instance profile for SSM | `false` | no |
 | vpc_id | `string` | ID of the VPC where resources will be created | n/a | yes |
 | subnet_ids | `list(string)` | List of subnet IDs to associate with the NACL | `[]` | no |
-| region | `string` | AWS region | `eu-west-1` | no |
 | tags | `map(string)` | A map of tags to add to all resources | `{}` | no |
 
 ## Outputs

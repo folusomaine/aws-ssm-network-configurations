@@ -21,17 +21,6 @@ variable "subnet_ids" {
   default     = []
 }
 
-variable "region" {
-  description = "AWS region"
-  type        = string
-  default     = "eu-west-1"
-
-  validation {
-    condition     = can(regex("^[a-z]{2}-[a-z]+-[1-9]$", var.region))
-    error_message = "Must be a valid AWS region name, e.g., us-west-2"
-  }
-}
-
 variable "tags" {
   description = "A map of tags to add to all created resources"
   type        = map(string)
