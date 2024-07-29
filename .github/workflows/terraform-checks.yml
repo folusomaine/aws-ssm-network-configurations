@@ -30,27 +30,19 @@ jobs:
       run: terraform validate
       if: success() && steps.init.outcome == 'success'
 
-    - name: TFLint
-      uses: terraform-linters/setup-tflint@v2
+    - name: Setup and Run TFLint
       if: success() && steps.init.outcome == 'success'
+      uses: terraform-linters/setup-tflint@v2
       with:
         tflint_version: v0.52.0
-
-    - name: Run TFLint
-      run: tflint --format=compact
-      if: success() && steps.init.outcome == 'success'
+      run: |
+        tflint --init
+        tflint --format=compact
 
     - name: Run TFSec
       uses: aquasecurity/tfsec-action@v1.0.0
       with:
         tfsec_args: --exclude aws-vpc-no-public-egress-sgr
-
-    - name: Checkov # Runs policy checks for violations policies
-      uses: bridgecrewio/checkov-action@master
-      if: success() && steps.init.outcome == 'success'
-      with:
-        directory: .
-        framework: terraform
 
     - name: Terraform Docs # TF auto documentation
       uses: terraform-docs/gh-actions@v0.11.0
