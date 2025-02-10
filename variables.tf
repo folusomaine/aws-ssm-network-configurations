@@ -15,6 +15,12 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "security_group_name" {
+  description = "Name of the security group name for SSM"
+  type        = string
+  default     = "ssm-security-group"
+}
+
 variable "subnet_ids" {
   description = "List of subnet IDs to associate with the NACL"
   type        = list(string)
@@ -25,4 +31,10 @@ variable "tags" {
   description = "A map of tags to add to all created resources"
   type        = map(string)
   default     = {}
+}
+
+variable "region" {
+  type        = string
+  default     = "eu-west-1"
+  description = "Target AWS region"
 }

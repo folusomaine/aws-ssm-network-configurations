@@ -15,15 +15,13 @@ This terraform module sets up the required network firewall configurations for A
 module "ssm_session_manager" {
   source = "path/to/module"
 
-  create                  = true
-  create_instance_profile = true
-  vpc_id                  = "vpc-12345678"
-  subnet_ids              = ["subnet-12345678", "subnet-87654321"]
-  region                  = "us-west-2"
-  
+  create                  = var.create
+  create_instance_profile = var.create_instance_profile
+  vpc_id                  = var.vpc_id
+  subnet_ids              = var.subnet_ids
+  region                  = var.region
   tags = {
-    Environment = "Production"
-    Project     = "SSM"
+    environment = "dev"
   }
 }
 ```
@@ -37,6 +35,7 @@ module "ssm_session_manager" {
 | vpc_id | `string` | ID of the VPC where resources will be created | n/a | yes |
 | subnet_ids | `list(string)` | List of subnet IDs to associate with the NACL | `[]` | no |
 | tags | `map(string)` | A map of tags to add to all resources | `{}` | no |
+| region | `string` | Target AWS region | `eu-west-1` | yes |
 
 ## Outputs
 

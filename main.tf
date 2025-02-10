@@ -3,7 +3,7 @@
 # Security Group
 resource "aws_security_group" "ssm_sg" {
   count       = var.create ? 1 : 0
-  name        = "ssm-security-group"
+  name        = var.security_group_name
   description = "Security group for SSM Session Manager"
   vpc_id      = var.vpc_id
 
